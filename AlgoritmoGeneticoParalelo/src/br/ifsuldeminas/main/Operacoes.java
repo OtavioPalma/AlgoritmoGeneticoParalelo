@@ -10,6 +10,11 @@ public class Operacoes {
         int tam = i1.getTam();
         int pontoCorte = r.nextInt(tam);
 
+        // Impede de alterar a primeira posicao
+        if (pontoCorte == 0) {
+            pontoCorte++;
+        }
+
         IndividuoModel ni1 = i1.clonar();
         IndividuoModel ni2 = i2.clonar();
 
@@ -29,7 +34,13 @@ public class Operacoes {
         if (probabilidade >= pontoCorte) {
             int tam = individuo.getTam();
             int pos = r.nextInt(tam);
-            individuo.setGene(pos, r.nextInt(10));
+
+            // Impede de alterar a primeira posição
+            if (pos == 0) {
+                pos++;
+            }
+
+            individuo.setGene(pos, r.nextInt(9) + 1);
         }
     }
 

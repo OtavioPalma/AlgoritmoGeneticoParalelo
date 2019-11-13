@@ -28,7 +28,7 @@ public class AlgoritmoGenetico {
             int cromossomo[] = new int[TAM_CROMOSSOMO];
 
             //Primeira posicao do cromossomo > -1 e < 2
-            cromossomo[0] = r.nextInt(3) - 1;
+            cromossomo[0] = r.nextInt(2);
             //Ultima posicao do cromossomo != 0
             cromossomo[TAM_CROMOSSOMO - 1] = r.nextInt(9) + 1;
 
