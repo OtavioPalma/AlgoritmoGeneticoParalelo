@@ -1,8 +1,5 @@
 package br.ifsuldeminas.main;
 
-import com.sun.javafx.geom.AreaOp;
-import java.util.Arrays;
-
 public class IndividuoModel {
 
     private Double cromossomo;
@@ -28,12 +25,17 @@ public class IndividuoModel {
     }
 
     public Double getFenotipo() {
-        Double aux = 10.0 * this.cromossomo;
-        return (this.cromossomo * Math.sin(aux * Math.PI)) + 1;
+        return (this.cromossomo * Math.sin(10 * this.cromossomo * Math.PI) + 1);
     }
 
     public Double getAptidao() {
-        return 1 / (Math.pow(getFenotipo(), 2) + 0.001);
+        double fenotipo = ((getFenotipo() - 1) * (-1));
+
+        if (fenotipo > 0.0) {
+            return fenotipo * (100.00);
+        } else {
+            return fenotipo * (-1.0);
+        }
     }
 
     public void mostrarIndividuo() {
@@ -51,12 +53,16 @@ public class IndividuoModel {
     public int getTam() {
         return this.cromossomoGene.length;
     }
-    
+
     public void setGene(int pos, int valor) {
         this.cromossomoGene[pos] = valor;
     }
-    
+
     public int getGene(int pos) {
         return this.cromossomoGene[pos];
+    }
+
+    public void inverte() {
+        this.cromossomo = -this.cromossomo;
     }
 }

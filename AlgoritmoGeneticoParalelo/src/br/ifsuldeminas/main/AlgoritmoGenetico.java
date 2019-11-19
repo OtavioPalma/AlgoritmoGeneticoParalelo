@@ -7,7 +7,7 @@ public class AlgoritmoGenetico {
 
     private ArrayList<IndividuoModel> populacao;
     private int probabilidadeMutacao;
-    private final int TAM_CROMOSSOMO = 5;
+    private final int TAM_CROMOSSOMO = 6;
 
     public AlgoritmoGenetico(int tam, int prob) {
         this.populacao = new ArrayList();
@@ -36,6 +36,12 @@ public class AlgoritmoGenetico {
                 cromossomo[j] = r.nextInt(10);
             }
             IndividuoModel novoIndividuo = new IndividuoModel(cromossomo);
+
+            if (cromossomo[0] == 0) {
+                if(new Random().nextInt(101) > 50) {
+                    novoIndividuo.inverte();
+                }
+            }
             this.populacao.add(novoIndividuo);
         }
     }
