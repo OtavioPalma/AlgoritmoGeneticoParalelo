@@ -1,6 +1,7 @@
-package br.ifsuldeminas.main;
 
-public class IndividuoModel {
+import java.io.Serializable;
+
+public class IndividuoModel implements Serializable {
 
     private Double cromossomo;
     private int[] cromossomoGene;
@@ -32,7 +33,7 @@ public class IndividuoModel {
         double fenotipo = ((getFenotipo() - 1) * (-1));
 
         if (fenotipo > 0.0) {
-            return fenotipo * (100.00);
+            return fenotipo * (100.0);
         } else {
             return fenotipo * (-1.0);
         }

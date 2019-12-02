@@ -1,4 +1,3 @@
-package br.ifsuldeminas.main;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,14 +32,10 @@ public class Operacoes {
 
         if (probabilidade >= pontoCorte) {
             int tam = individuo.getTam();
-            int pos = r.nextInt(tam);
 
-            // Impede de alterar a primeira posição
-            if (pos == 0) {
-                pos++;
+            for (int i = 1; i < tam; i++) {
+                individuo.setGene(i, r.nextInt(9) + 1);
             }
-
-            individuo.setGene(pos, r.nextInt(9) + 1);
         }
     }
 
