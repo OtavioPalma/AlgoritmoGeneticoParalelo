@@ -10,16 +10,16 @@ public class RMIServer extends UnicastRemoteObject implements RMI {
 
     private final ArrayList<IndividuoModel> lista;
     private ArrayList<IndividuoModel> novaLista;
-    private boolean recebeu;
+    private int numIteracao = Integer.MIN_VALUE;
 
-    public ArrayList<IndividuoModel> hello() throws RemoteException {
+    public ArrayList<IndividuoModel> getIndividuosVizinho() throws RemoteException {
         return this.lista;
     }
 
-    public RMIServer(ArrayList<IndividuoModel> lista) throws RemoteException {
+    public RMIServer(ArrayList<IndividuoModel> lista, int numIteracao) throws RemoteException {
         this.lista = lista;
         this.novaLista = new ArrayList();
-        this.recebeu = false;
+        this.numIteracao = numIteracao;
     }
 
     public ArrayList<IndividuoModel> getNovaLista() {
@@ -32,23 +32,25 @@ public class RMIServer extends UnicastRemoteObject implements RMI {
 
         Thread.currentThread().sleep(5000);
 
+        int numIteracao = 0;
         RMI remoteObjectReference = null;
-        while (this.novaLista.isEmpty()) {
-            remoteObjectReference = (RMI) Naming.lookup("rmi://192.168.2.2/RMIServer");
-            this.novaLista = remoteObjectReference.hello();
-            this.recebeu = true;
-        }
 
-        if (remoteObjectReference != null) {
-            /* MOSTRAR NOVOS INDIVIDUOS */
-            System.out.println("Otavio PC enviou os individuos: ");
-            for (IndividuoModel individuo : remoteObjectReference.hello()) {
-                individuo.mostrarIndividuo();
-            }
+        do {
+            remoteObjectReference = (RMI) Naming.lookup("rmi://192.168.2.2/RMIServer");
+            numIteracao = remoteObjectReference.getIteracaoVizinho();
+        } while (this.numIteracao != numIteracao);
+
+        this.novaLista = remoteObjectReference.getIndividuosVizinho();
+
+        /* MOSTRAR NOVOS INDIVIDUOS */
+        System.out.println("Individuos da iteração " + this.numIteracao + " recebidos");
+        for (IndividuoModel individuo : remoteObjectReference.getIndividuosVizinho()) {
+            individuo.mostrarIndividuo();
         }
     }
 
-    public boolean recebeu() {
-        return recebeu;
+    @Override
+    public int getIteracaoVizinho() throws RemoteException {
+        return this.numIteracao;
     }
 }

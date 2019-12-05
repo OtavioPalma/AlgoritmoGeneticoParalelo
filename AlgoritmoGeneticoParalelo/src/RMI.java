@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public interface RMI extends Remote {
 
-    public ArrayList<IndividuoModel> hello() throws RemoteException;
+    public ArrayList<IndividuoModel> getIndividuosVizinho() throws RemoteException;
 
+    public int getIteracaoVizinho() throws RemoteException;
 }
