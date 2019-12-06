@@ -8,37 +8,26 @@ import java.util.ArrayList;
 
 public class RMIServer extends UnicastRemoteObject implements RMI {
 
-    private static final long serialVersionUID = 1L;
-    private final ArrayList<IndividuoModel> lista;
+    private ArrayList<IndividuoModel> lista;
     private ArrayList<IndividuoModel> novaLista;
     private int numIteracao = Integer.MIN_VALUE;
+    private RMI remoteObjectReference;
 
-    public ArrayList<IndividuoModel> getIndividuosVizinho() throws RemoteException {
-        return this.lista;
-    }
-
-    public RMIServer(ArrayList<IndividuoModel> lista, int numIteracao) throws RemoteException {
-        this.lista = lista;
+    public RMIServer() throws RemoteException, MalformedURLException, NotBoundException {
         this.novaLista = new ArrayList<IndividuoModel>();
-        this.numIteracao = numIteracao;
+        System.setProperty("java.rmi.server.hostname", "172.16.104.59");
+        Naming.rebind("rmi://172.16.104.59/RMIServer", this);
     }
-
-    public ArrayList<IndividuoModel> getNovaLista() {
+    
+     public ArrayList<IndividuoModel> getNovaLista() {
         return novaLista;
     }
 
-    public void start() throws NotBoundException, MalformedURLException, RemoteException, InterruptedException {
-        System.setProperty("java.rmi.server.hostname", "192.168.2.5");
-        Naming.rebind("rmi://192.168.2.5/RMIServer", this);
-
-        Thread.currentThread();
-        Thread.sleep(5000);
-
+    public void start() throws RemoteException, InterruptedException {
         int numIteracao = 0;
-        RMI remoteObjectReference = null;
-
+                
         do {
-            remoteObjectReference = (RMI) Naming.lookup("rmi://192.168.2.2/RMIServer");
+            Thread.currentThread().sleep(1000);
             numIteracao = remoteObjectReference.getIteracaoVizinho();
         } while (this.numIteracao != numIteracao);
 
@@ -54,5 +43,21 @@ public class RMIServer extends UnicastRemoteObject implements RMI {
     @Override
     public int getIteracaoVizinho() throws RemoteException {
         return this.numIteracao;
+    }
+
+    public ArrayList<IndividuoModel> getIndividuosVizinho() throws RemoteException {
+        return this.lista;
+    }
+
+    public void setLista(ArrayList<IndividuoModel> lista) {
+        this.lista = lista;
+    }
+
+    public void setNumIteracao(int numIteracao) {
+        this.numIteracao = numIteracao;
+    }
+
+    public void setObjectReference(String vizinho) throws MalformedURLException, RemoteException, NotBoundException {
+        this.remoteObjectReference = (RMI) Naming.lookup("rmi://" + vizinho + "/RMIServer");
     }
 }

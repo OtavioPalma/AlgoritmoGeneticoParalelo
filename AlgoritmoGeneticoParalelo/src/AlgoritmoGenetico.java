@@ -71,11 +71,10 @@ public class AlgoritmoGenetico {
     }
 
     public ArrayList<IndividuoModel> getPopulacao() {
-        Collections.sort(populacao, (i1, i2) -> i1.getAptidao() < i2.getAptidao() ? 1 : i1.getAptidao() > i2.getAptidao() ? -1 : 0);
+        ordena();
         ArrayList<IndividuoModel> melhoresIndividuos = new ArrayList<IndividuoModel>();
-        int tam = populacao.size() / 10;
 
-        for (int i = 0; i < tam; i++) {
+        for (int i = 0; i < 100; i++) {
             melhoresIndividuos.add(populacao.get(i));
         }
 
