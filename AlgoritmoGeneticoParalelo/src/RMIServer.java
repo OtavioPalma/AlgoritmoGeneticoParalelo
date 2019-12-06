@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class RMIServer extends UnicastRemoteObject implements RMI {
 
+    private static final long serialVersionUID = 1L;
     private final ArrayList<IndividuoModel> lista;
     private ArrayList<IndividuoModel> novaLista;
     private int numIteracao = Integer.MIN_VALUE;
@@ -18,7 +19,7 @@ public class RMIServer extends UnicastRemoteObject implements RMI {
 
     public RMIServer(ArrayList<IndividuoModel> lista, int numIteracao) throws RemoteException {
         this.lista = lista;
-        this.novaLista = new ArrayList();
+        this.novaLista = new ArrayList<IndividuoModel>();
         this.numIteracao = numIteracao;
     }
 
@@ -30,7 +31,8 @@ public class RMIServer extends UnicastRemoteObject implements RMI {
         System.setProperty("java.rmi.server.hostname", "192.168.2.5");
         Naming.rebind("rmi://192.168.2.5/RMIServer", this);
 
-        Thread.currentThread().sleep(5000);
+        Thread.currentThread();
+        Thread.sleep(5000);
 
         int numIteracao = 0;
         RMI remoteObjectReference = null;

@@ -9,7 +9,7 @@ public class AlgoritmoGenetico {
     private int probabilidadeMutacao;
 
     public AlgoritmoGenetico(int tam, int prob) {
-        this.populacao = new ArrayList();
+        this.populacao = new ArrayList<IndividuoModel>();
         this.probabilidadeMutacao = prob;
         inicializarPopulacao(tam);
     }
@@ -53,7 +53,7 @@ public class AlgoritmoGenetico {
         Operacoes operacoes = new Operacoes();
 
         while (numGeracoes > 0) {
-            ArrayList<IndividuoModel> novaPopulacao = new ArrayList();
+            ArrayList<IndividuoModel> novaPopulacao = new ArrayList<IndividuoModel>();
 
             while (novaPopulacao.size() < this.populacao.size()) {
                 IndividuoModel i1 = operacoes.roleta(this.populacao);
@@ -72,7 +72,7 @@ public class AlgoritmoGenetico {
 
     public ArrayList<IndividuoModel> getPopulacao() {
         Collections.sort(populacao, (i1, i2) -> i1.getAptidao() < i2.getAptidao() ? 1 : i1.getAptidao() > i2.getAptidao() ? -1 : 0);
-        ArrayList<IndividuoModel> melhoresIndividuos = new ArrayList();
+        ArrayList<IndividuoModel> melhoresIndividuos = new ArrayList<IndividuoModel>();
         int tam = populacao.size() / 10;
 
         for (int i = 0; i < tam; i++) {
