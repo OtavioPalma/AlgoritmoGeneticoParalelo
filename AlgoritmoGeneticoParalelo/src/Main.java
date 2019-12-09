@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args)
             throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
-        AlgoritmoGenetico ag = new AlgoritmoGenetico(5000, 10);
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(1000, 10);
         RMIServer server = new RMIServer();
 
         new Scanner(System.in).nextLine();

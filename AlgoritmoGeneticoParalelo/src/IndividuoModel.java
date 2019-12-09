@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 public class IndividuoModel implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Double cromossomo;
     private int[] cromossomoGene;
 
@@ -18,8 +19,12 @@ public class IndividuoModel implements Serializable {
 
     public IndividuoModel(Double cromossomo) {
         this.cromossomo = cromossomo;
-        this.cromossomoGene = String.valueOf(this.cromossomo).replaceAll("\\D", "").chars()
-                .map(Character::getNumericValue).toArray();
+        this.cromossomoGene = String
+            .valueOf(this.cromossomo)
+            .replaceAll("\\D", "")
+            .chars()
+            .map(Character::getNumericValue)
+            .toArray();
     }
 
     public Double getFenotipo() {
@@ -45,7 +50,7 @@ public class IndividuoModel implements Serializable {
     }
 
     public IndividuoModel clonar() {
-        return new IndividuoModel(this.cromossomoGene);
+        return new IndividuoModel(this.cromossomo);
     }
 
     public int getTam() {
@@ -54,13 +59,6 @@ public class IndividuoModel implements Serializable {
 
     public void setGene(int pos, int valor) {
         this.cromossomoGene[pos] = valor;
-
-        String cromossomoString = this.cromossomoGene[0] + ".";
-
-        for (int i = 1; i < cromossomoGene.length; i++) {
-            cromossomoString += cromossomoGene[i];
-        }
-        this.cromossomo = Double.parseDouble(cromossomoString);
     }
 
     public int getGene(int pos) {

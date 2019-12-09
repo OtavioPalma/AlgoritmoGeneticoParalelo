@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class RMIServer extends UnicastRemoteObject implements RMI {
 
+    private static final long serialVersionUID = 1L;
     private ArrayList<IndividuoModel> lista;
     private ArrayList<IndividuoModel> novaLista;
     private int numIteracao = Integer.MIN_VALUE;
