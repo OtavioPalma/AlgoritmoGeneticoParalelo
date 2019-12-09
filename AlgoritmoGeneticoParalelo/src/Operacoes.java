@@ -34,7 +34,7 @@ public class Operacoes {
             int tam = individuo.getTam();
 
             for (int i = 1; i < tam; i++) {
-                individuo.setGene(i, r.nextInt(4) + 1);
+                individuo.setGene(i, r.nextInt(9) + 1);
             }
         }
     }
